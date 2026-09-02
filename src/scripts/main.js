@@ -56,14 +56,6 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// ==========================================
-// 4. NÚT NHẠC
-// ==========================================
-const musicBtn = document.getElementById('musicBtn');
-musicBtn.addEventListener('click', () => {
-  musicBtn.classList.toggle('playing');
-  alert('🎵 Nhạc nền sẽ phát tại đây!');
-});
 
 // ==========================================
 // 5. HIỆU ỨNG LƯỚT ĐẾN ĐÂU HIỆN RA ĐÓ
@@ -195,3 +187,46 @@ function downloadQR(imgId, fileName) {
             alert('📷 Mở ảnh trong tab mới → Nhấn Lưu ảnh...');
         });
 }
+
+// ==========================================
+// 🎵 NHẠC NỀN: TỰ ĐỘNG PHÁT KHI MỞ THIỆP + BẬT/TẮT
+// ==========================================
+const bgMusic = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+let isMusicPlaying = false;
+
+// ✅ Tự động PHÁT NHẠC khi nhấn "Mở thiệp mời"
+openInvitationBtn.addEventListener('click', () => {
+    // ... (giữ nguyên code mở thiệp cũ)
+
+    // Bắt đầu phát nhạc
+    if (bgMusic && !isMusicPlaying) {
+        bgMusic.play().then(() => {
+            isMusicPlaying = true;
+            musicBtn.classList.add('playing');
+        }).catch(err => {
+            console.log('Trình duyệt chặn tự động phát → chờ người dùng nhấn nút');
+            // Trình duyệt hiện đại chặn tự động nhạc → chờ nhấn nút thủ công
+        });
+    }
+});
+
+// ✅ BẬT / TẮT khi nhấn vào icon nhạc
+musicBtn.addEventListener('click', () => {
+    if (!bgMusic) return;
+
+    if (isMusicPlaying) {
+        // ĐANG phát → TẮT
+        bgMusic.pause();
+        musicBtn.classList.remove('playing');
+        isMusicPlaying = false;
+    } else {
+        // ĐANG tắt → PHÁT
+        bgMusic.play().then(() => {
+            musicBtn.classList.add('playing');
+            isMusicPlaying = true;
+        }).catch(err => {
+            alert('❌ Không thể phát nhạc: ' + err.message);
+        });
+    }
+});
