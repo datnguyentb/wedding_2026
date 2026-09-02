@@ -8,9 +8,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./src/styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
-    <div id="container-cover">
+
+    <!-- ======================================
+        MÀN HÌNH MỞ THIỆP
+    ====================================== -->
+    <div id="coverPage">
+        <div class="cover-bg"></div>
+        <div class="cover-content">
+            <p class="cover-sub">Chào mừng đến với tình yêu của chúng tôi</p>
+            <h2 class="cover-names">Thanh Huy &ensp;❤️&ensp; Phương Thúy</h2>
+            <p class="cover-date">27 · 09 · 2026</p>
+            <button id="openInvitationBtn" class="open-invitation-btn">💌 Mở Thiệp Cưới</button>
+        </div>
+    </div>
+
+    <!-- ======================================
+        HIỆU ỨNG ICON RƠI NỀN
+    ====================================== -->
+    <div id="heartsRain"></div>
+
+    <!-- ======================================
+        NỘI DUNG THIỆP CHÍNH
+    ====================================== -->
+    <div id="container-cover" class="main-content">
         <!-- Nút Nhạc -->
         <button class="music-btn" id="musicBtn">🎵</button>
 
@@ -85,6 +108,8 @@
                 </div>
             </section>
 
+           
+
             <!-- SECTION 2: Trân Trọng Kính Mời & Album Ảnh -->
             <section class="footer-invite scroll-reveal">
                 <h2 class="script-title inverse">Trân Trọng Kính Mời</h2>
@@ -97,6 +122,18 @@
                     </div>
                     <div class="gallery-item side">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpdj1Zl1qgFbjpGvjGf0q9hcWxmHiEa3_7WPpVK9ZJwg&s=10" alt="Ảnh cưới 3">
+                    </div>
+                </div>
+                <!-- 🖼️ Thêm ảnh nhiều hơn trên PC -->
+                <div class="wedding-gallery pc-gallery-extra">
+                    <div class="gallery-item side">
+                        <img src="https://tonywedding.vn/wp-content/uploads/2025/07/z6779342239671_eb9db235bdb2f9527dc65076ac950ec7.jpg" alt="Ảnh cưới 4">
+                    </div>
+                    <div class="gallery-item side">
+                        <img src="https://felywedding.com/wp-content/uploads/2024/08/2.jpg" alt="Ảnh cưới 5">
+                    </div>
+                    <div class="gallery-item side">
+                        <img src="https://www.tierra.vn/wp-content/uploads/2025/08/concept-chup-anh-cuoi-trong-studio-voi-hoa-tuoi-683x1024.jpg" alt="Ảnh cưới 6">
                     </div>
                 </div>
                 <div class="event-details">
@@ -227,6 +264,11 @@
                     <div class="img-box"><img src="https://felywedding.com/wp-content/uploads/2024/08/TON6780.jpg" alt="Ảnh cưới 4" /></div>
                     <div class="img-box"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShjIPwH_ZAL73VhECHQll_YtIDq9rRp2Du-_VdVrx3RDIRo78ctKu2pio&s=10" alt="Ảnh cưới 5" /></div>
                 </div>
+                <!-- 🖼️ Thêm ảnh trên PC -->
+                <div class="grid-2-col pc-extra-row">
+                    <div class="img-box"><img src="https://felywedding.com/wp-content/uploads/2024/01/DSC07955.jpg" alt="Ảnh cưới 6" /></div>
+                    <div class="img-box"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGwhlcpDL2h__eP-3ZMWu9sppfUWBIwhTIEs_sGy0umh7uP40eUf_QRa8&s=10" alt="Ảnh cưới 7" /></div>
+                </div>
             </section>
 
             <!-- SECTION: GỬI LỜI CHÚC -->
@@ -242,16 +284,61 @@
                     </div>
                     <button type="submit" class="submit-btn">💝 Gửi Lời Chúc</button>
                 </form>
-
-                <!-- Khu vực hiển thị lời chúc chạy DỌC xuống dưới -->
                 <div class="wish-display-box">
                     <div class="wish-scroll-wrap-vertical">
-                        <div class="wish-scroll-vertical" id="wishScroll">
-                            <!-- Lời chúc sẽ tự động thêm vào đây -->
-                        </div>
+                        <div class="wish-scroll-vertical" id="wishScroll"></div>
                     </div>
                 </div>
             </section>
+
+            <!-- ✅ SECTION HỘP QUÀ MỪNG - CLICK HIỆN POPUP -->
+            <section class="qr-section scroll-reveal">
+                <h2 class="script-title">🧧 Hộp Quà Mừng</h2>
+                
+            <!-- Nút Bấm Mở Popup - Ảnh + Chữ Bên Dưới -->
+            <button class="gift-box-btn" id="openGiftBtn">
+                <img src="./src/assets/images/gift.png" alt="Hộp Quà Mừng" class="gift-icon-img" />
+                <span class="gift-btn-text">Bấm để mở 💝</span>
+            </button>
+
+                <!-- Popup Hộp Quà Mừng -->
+                
+            </section>
+
+            <div class="gift-popup-overlay" id="giftPopupOverlay">
+                <div class="gift-popup-content">
+                    <!-- Nút Đóng Popup -->
+                    <button class="popup-close-btn" id="closeGiftBtn">✕</button>
+
+                    <h3 class="popup-title">HỘP QUÀ MỪNG</h3>
+
+                    <div class="qr-container-popup">
+                        <!-- QR Chú Rể -->
+                        <div class="qr-card-popup">
+                            <h4 class="qr-side-title">Chú Rể — Nguyễn Thanh Huy</h4>
+                            <div class="qr-img-box-popup">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original" alt="QR Chú Rể" id="qrGroomImg" />
+                            </div>
+                            <p class="qr-bank">Vietcombank</p>
+                            <p class="qr-account">1234567890</p>
+                            <p class="qr-account-name">Nguyễn Thanh Huy</p>
+                            <button class="save-qr-btn" onclick="downloadQR('qrGroomImg', 'QR_ChuRe_NguyenThanhHuy')"><i class="fa-solid fa-download"></i> Tải QR</button>
+                        </div>
+
+                        <!-- QR Cô Dâu -->
+                        <div class="qr-card-popup">
+                            <h4 class="qr-side-title">Cô Dâu — Trịnh Phương Thúy</h4>
+                            <div class="qr-img-box-popup">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original" alt="QR Cô Dâu" id="qrBrideImg" />
+                            </div>
+                            <p class="qr-bank">BIDV</p>
+                            <p class="qr-account">0987654321</p>
+                            <p class="qr-account-name">Trịnh Phương Thúy</p>
+                            <button class="save-qr-btn" onclick="downloadQR('qrBrideImg', 'QR_CoDau_TrinhPhuongThuy')"><i class="fa-solid fa-download"></i> Tải QR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- SECTION: Cảm Ơn Cuối Trang -->
             <section class="thank-you-section scroll-reveal">

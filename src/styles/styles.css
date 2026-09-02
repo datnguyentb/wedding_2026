@@ -16,7 +16,7 @@
 }
 
 /* ==========================================
-   ANIMATION HIỆU ỨNG
+   ANIMATION
 ========================================== */
 @keyframes fadeInUp {
   from {
@@ -52,6 +52,31 @@
     transform: scale(1.2);
   }
 }
+/* ❤️ Hiệu ứng trái tim rơi */
+@keyframes fallDown {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(105vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+/* Mở thiệp */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 /* ==========================================
    HIỆU ỨNG LƯỚT ĐẾN ĐÂU HIỆN RA ĐÓ
 ========================================== */
@@ -67,7 +92,101 @@
 }
 
 /* ==========================================
-   RESET & LAYOUT
+   MÀN HÌNH MỞ THIỆP
+========================================== */
+#coverPage {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#coverPage.hidden-cover {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.05);
+}
+
+.cover-bg {
+  position: absolute;
+  inset: 0;
+  background: url("https://t4.ftcdn.net/jpg/06/60/71/63/360_F_660716357_vO9kSlAm5D57hswPN4KxZJBpBnZNxsno.jpg") center/cover no-repeat;
+  filter: brightness(0.75);
+}
+
+.cover-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  padding: 30px;
+}
+
+.cover-sub {
+  font-family: "Dancing Script", cursive;
+  font-size: 22px;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+
+.cover-names {
+  font-family: "Dancing Script", cursive;
+  font-size: 42px;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.cover-date {
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 35px;
+  opacity: 0.85;
+}
+
+.open-invitation-btn {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #8b1d24, #6C2224);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 17px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+.open-invitation-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* ==========================================
+   HIỆU ỨNG ICON RƠI NỀN
+========================================== */
+#heartsRain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.heart-fall {
+  position: absolute;
+  top: -5vh;
+  animation: fallDown linear infinite;
+  opacity: 0;
+  color: rgba(255, 215, 215, 0.35);
+  filter: blur(0.5px);
+}
+
+/* ==========================================
+   RESET & LAYOUT — MOBILE FIRST
 ========================================== */
 * {
   box-sizing: border-box;
@@ -77,10 +196,18 @@
 
 body {
   background-color: #1a1a1a;
-  display: flex;
-  justify-content: center;
   min-height: 100vh;
   font-family: "Montserrat", sans-serif;
+}
+
+/* Nội dung chính ban đầu ẩn, hiện khi mở thiệp */
+.main-content {
+  opacity: 0;
+  transition: opacity 1s ease 0.3s;
+}
+
+body.invitation-opened .main-content {
+  opacity: 1;
 }
 
 #container-cover {
@@ -88,9 +215,11 @@ body {
   width: 100%;
   max-width: 430px;
   min-height: 100vh;
+  margin: 0 auto;
   position: relative;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 2;
 }
 
 /* Nút nhạc */
@@ -176,12 +305,10 @@ body {
   right: 12%;
   width: 100px;
   height: 120px;
-  background: rgba(255, 255, 255, 0.9);
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .double-happiness img {
@@ -244,6 +371,281 @@ body {
   line-height: 1.4;
 }
 
+/* ==========================================
+   HỘP QUÀ MỪNG - NÚT MỞ POPUP
+========================================== */
+/* ==========================================
+   NÚT ẢNH HỘP QUÀ + CHỮ BÊN DƯỚI
+   BẤM VÀO ẢNH HOẶC CHỮ ĐỀU ĐƯỢC
+========================================== */
+.gift-box-btn {
+  background: transparent;
+  border: none;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Khoảng cách giữa ảnh và chữ */
+  margin: 0 auto;
+}
+
+/* Ảnh Hộp Quà */
+.gift-icon-img {
+  width: 160px;
+  height: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transition: all 0.35s ease;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+/* Chữ bên dưới */
+.gift-btn-text {
+  font-family: "Dancing Script", cursive;
+  font-size: 20px;
+  color: var(--primary-color);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.gift-btn-text::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #d4af37, #8b1d24);
+  transition: all 0.35s ease;
+  transform: translateX(-50%);
+}
+
+/* ✅ HIỆU ỨNG HOVER - Bấm vào đâu cũng kích hoạt */
+.gift-box-btn:hover {
+  transform: translateY(-6px) scale(1.05);
+}
+
+.gift-box-btn:hover .gift-icon-img {
+  filter: drop-shadow(0 12px 20px rgba(139, 29, 36, 0.25)) brightness(1.05);
+  animation: giftShake 0.4s ease-in-out;
+}
+
+.gift-box-btn:hover .gift-btn-text {
+  color: #6C2224;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+.gift-box-btn:hover .gift-btn-text::after {
+  width: 100%;
+}
+
+/* Hiệu ứng rung nhẹ hộp quà */
+@keyframes giftShake {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-5deg);
+  }
+  40% {
+    transform: rotate(5deg);
+  }
+  60% {
+    transform: rotate(-3deg);
+  }
+  80% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+/* Khi nhấn xuống */
+.gift-box-btn:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.gift-box-btn:active .gift-icon-img {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+/* 📱 Responsive trên điện thoại */
+@media (max-width: 400px) {
+  .gift-icon-img {
+    width: 140px;
+  }
+  .gift-btn-text {
+    font-size: 18px;
+  }
+}
+/* ==========================================
+ POPUP HIỂN THỊ QR
+========================================== */
+.gift-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.gift-popup-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gift-popup-content {
+  background: #fffef9;
+  border-radius: 20px;
+  padding: 30px 20px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  transform: translateY(30px);
+  transition: transform 0.3s ease;
+}
+
+.gift-popup-overlay.active .gift-popup-content {
+  transform: translateY(0);
+}
+
+.popup-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.popup-close-btn:hover {
+  color: #8b1d24;
+}
+
+.popup-title {
+  text-align: center;
+  font-family: "Dancing Script", cursive;
+  font-size: 28px;
+  color: #2c5f38;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.qr-container-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.qr-card-popup {
+  background: linear-gradient(135deg, #f8faf8, #f0f5f0);
+  border-radius: 16px;
+  padding: 20px 15px;
+  text-align: center;
+  border-top: 3px solid #4a8c5a;
+}
+
+.qr-card-popup .qr-side-title {
+  font-family: "Dancing Script", cursive;
+  font-size: 20px;
+  color: #2c5f38;
+  margin-bottom: 12px;
+}
+
+.qr-img-box-popup {
+  width: 100%;
+  max-width: 180px;
+  margin: 0 auto 12px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.qr-img-box-popup img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.qr-card-popup .qr-bank {
+  font-weight: 600;
+  font-size: 14px;
+  color: #222;
+  margin-top: 6px;
+}
+
+.qr-card-popup .qr-account {
+  font-size: 15px;
+  color: #333;
+  font-weight: 500;
+  font-family: "Montserrat", sans-serif;
+}
+
+.qr-card-popup .qr-account-name {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.save-qr-btn {
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #4a8c5a, #3d704c);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.save-qr-btn:hover {
+  background: linear-gradient(135deg, #3d704c, #2c5f38);
+  transform: scale(1.03);
+}
+
+/* RESPONSIVE POPUP TRÊN ĐIỆN THOẠI */
+@media (max-width: 400px) {
+  .gift-popup-content {
+    padding: 25px 15px;
+  }
+  .popup-title {
+    font-size: 24px;
+  }
+  .qr-img-box-popup {
+    max-width: 160px;
+  }
+}
+/* CHO PC — 2 cột trong popup */
+@media (min-width: 700px) {
+  .gift-popup-content {
+    max-width: 720px;
+  }
+  .qr-container-popup {
+    flex-direction: row;
+    gap: 20px;
+  }
+  .qr-card-popup {
+    flex: 1;
+  }
+}
 /* Avatars */
 .avatars-container {
   display: flex;
@@ -325,6 +727,15 @@ body {
   border-top: 1px solid var(--bg-red);
   padding-top: 30px;
   position: relative;
+}
+
+/* Ảnh thêm trên PC */
+.pc-gallery-extra {
+  display: none;
+}
+
+.pc-extra-row {
+  display: none;
 }
 
 .wedding-gallery {
@@ -574,12 +985,6 @@ body {
   padding: 25px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.04);
-}
-
-.card-title {
-  text-align: center;
-  margin-bottom: 20px;
-  color: var(--text-dark);
 }
 
 .rsvp-form {
@@ -855,51 +1260,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 30px;
-}
-
-.wish-form input,
-.wish-form textarea {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 14px;
-  outline: none;
-  transition: border 0.2s;
-  font-family: "Montserrat", sans-serif;
-}
-
-.wish-form input:focus,
-.wish-form textarea:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(139, 29, 36, 0.1);
-}
-
-.wish-form textarea {
-  min-height: 90px;
-  resize: none;
-}
-
-/* ==========================================
-   SECTION: GỬI LỜI CHÚC - CHẠY DỌC
-========================================== */
-.wish-section {
-  padding: 30px 15px;
-  text-align: center;
-}
-
-.wish-intro {
-  font-family: "Dancing Script", cursive;
-  font-size: 20px;
-  color: var(--primary-color);
-  margin-bottom: 20px;
-}
-
-.wish-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
   margin-bottom: 25px;
 }
 
@@ -931,7 +1291,7 @@ body {
   background: linear-gradient(180deg, #fff5f7, #fff9f0, #fff5f7);
   border-radius: 16px;
   padding: 15px;
-  height: 220px; /* Chiều cao cố định khung cuộn */
+  height: 220px;
   overflow: hidden;
   border: 2px solid rgba(212, 175, 55, 0.25);
   box-shadow: 0 4px 15px rgba(139, 29, 36, 0.08);
@@ -947,7 +1307,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  animation: scrollDown 20s linear infinite; /* Số giây = tốc độ */
+  animation: scrollDown 20s linear infinite;
 }
 
 .wish-item {
@@ -973,21 +1333,81 @@ body {
   margin-left: 4px;
 }
 
-/* HIỆU ỨNG CHẠY DỌC TỪ TRÊN XUỐNG LIÊN TỤC */
+/* HIỆU ỨNG CHẠY DỌC LIÊN TỤC */
 @keyframes scrollDown {
   0% {
     transform: translateY(0);
   }
   100% {
     transform: translateY(-50%);
-  } /* Chạy đúng 1 nửa = liền không khoảng trống */
-}
-/* HIỆU ỨNG CHẠY NGANG */
-@keyframes scrollLeft {
-  0% {
-    transform: translateX(0);
   }
-  100% {
-    transform: translateX(-50%);
+}
+/* ==========================================
+   🖥️ RESPONSIVE CHO PC
+========================================== */
+@media (min-width: 900px) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 0;
+  }
+  #container-cover {
+    max-width: 900px;
+    min-height: auto;
+    border-radius: 16px;
+  }
+  .invitation-card {
+    border-radius: 20px;
+    padding: 40px 50px;
+  }
+  /* Hiển thị thêm ảnh trên PC */
+  .pc-gallery-extra {
+    display: flex;
+    margin-top: 15px;
+  }
+  .pc-extra-row {
+    display: grid;
+  }
+  /* Bố cục 2 cột trên PC */
+  .parents-info {
+    margin-bottom: 30px;
+  }
+  .qr-container {
+    gap: 30px;
+  }
+  .qr-card {
+    padding: 25px;
+  }
+  .qr-img-box {
+    max-width: 160px;
+  }
+  /* Grid ảnh rộng hơn */
+  .grid-2-col {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  /* Điều chỉnh khoảng cách */
+  .countdown-container {
+    gap: 20px;
+  }
+  .time-box {
+    width: 80px;
+    height: 80px;
+  }
+  .time-box .number {
+    font-size: 26px;
+  }
+  .time-box .label {
+    font-size: 12px;
+  }
+  /* Lịch to hơn */
+  .calendar-card {
+    max-width: 500px;
+    margin: 30px auto;
+  }
+  .days-grid span {
+    height: 40px;
+    font-size: 16px;
   }
 }/*# sourceMappingURL=styles.css.map */
