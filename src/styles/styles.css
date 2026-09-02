@@ -1,0 +1,993 @@
+@charset "UTF-8";
+/* ==========================================
+   BIẾN & FONTS
+========================================== */
+:root {
+  --bg-red: #6C2224;
+  --card-bg: #FFFFFF;
+  --text-light: #FFFFFF;
+  --text-dark: #2C2C2C;
+  --primary-color: #8b1d24;
+  --primary-hover: #6a1319;
+  --text-muted: #666666;
+  --border-color: #e2e8f0;
+  --gold: #d4af37;
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================
+   ANIMATION HIỆU ỨNG
+========================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes shimmerGold {
+  0% {
+    filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.7));
+  }
+  100% {
+    filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.4));
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+/* ==========================================
+   HIỆU ỨNG LƯỚT ĐẾN ĐÂU HIỆN RA ĐÓ
+========================================== */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================
+   RESET & LAYOUT
+========================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
+}
+
+#container-cover {
+  background: linear-gradient(180deg, #5c1719 0%, #7a1f22 40%, #8b1d24 100%);
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Nút nhạc */
+.music-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--text-light);
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.music-btn:hover {
+  transform: scale(1.1);
+}
+
+.music-btn.playing {
+  animation: spin 3s linear infinite;
+}
+
+/* ==========================================
+   HEADER & ẢNH ĐÔI
+========================================== */
+#header {
+  text-align: center;
+  padding-top: 35px;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.date .save-the-date {
+  font-family: "Dancing Script", "Alex Brush", cursive;
+  font-size: 32px;
+  color: var(--text-light);
+  animation: shimmerGold 3s ease-in-out infinite;
+}
+
+.date .wedding-date {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 2px;
+  margin-top: 5px;
+}
+
+.couple-names {
+  font-family: "Dancing Script", cursive;
+  font-size: 30px;
+  color: var(--text-light);
+  font-weight: 700;
+  margin-top: 15px;
+  animation: shimmerGold 3s ease-in-out infinite;
+}
+
+.couple-img-box {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  animation: fadeInUp 1s ease 0.2s both;
+}
+
+.couple-img {
+  width: 85%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.double-happiness {
+  position: absolute;
+  top: 15%;
+  right: 12%;
+  width: 100px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.double-happiness img {
+  width: 70%;
+  height: auto;
+}
+
+/* ==========================================
+   MAIN THIỆP MỜI - NỀN TRẮNG
+========================================== */
+.invitation-card {
+  background-color: var(--card-bg);
+  border-radius: 40px 40px 0 0;
+  margin-top: 10px;
+  padding: 25px 20px 30px;
+  position: relative;
+}
+
+.script-title {
+  font-family: "Dancing Script", cursive;
+  font-size: 36px;
+  color: var(--text-dark);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.script-title.inverse {
+  color: #000;
+  font-size: 32px;
+}
+
+/* Thông tin phụ huynh */
+.parents-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.family-side {
+  width: 48%;
+  text-align: center;
+  padding: 12px 8px;
+  background: linear-gradient(135deg, #fff5f7, #fff9f0);
+  border-radius: 12px;
+  border-top: 3px solid var(--gold);
+}
+
+.side-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 6px;
+}
+
+.parent-name {
+  font-family: "Playfair Display", serif;
+  font-size: 13px;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* Avatars */
+.avatars-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.avatar-item {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 4px solid rgba(212, 175, 55, 0.25);
+}
+
+.avatar-item img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.couple-full-names {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.couple-full-names .name {
+  font-family: "Dancing Script", cursive;
+  font-size: 24px;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.couple-full-names .ampersand {
+  font-size: 20px;
+  color: var(--gold);
+}
+
+/* Đếm ngược */
+.countdown-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.time-box {
+  background: linear-gradient(180deg, #2c0a0c, #000);
+  color: #fff;
+  width: 55px;
+  height: 55px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.time-box .number {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.time-box .label {
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+/* Gallery 3 ảnh */
+.footer-invite {
+  border-top: 1px solid var(--bg-red);
+  padding-top: 30px;
+  position: relative;
+}
+
+.wedding-gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.gallery-item {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  border: 3px solid rgba(212, 175, 55, 0.15);
+  transition: transform 0.4s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.03);
+}
+
+.gallery-item.side {
+  width: 30%;
+  height: 160px;
+}
+
+.gallery-item.main {
+  width: 40%;
+  height: 210px;
+  z-index: 2;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.event-details {
+  text-align: center;
+}
+
+.event-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+.event-sub {
+  font-family: "Playfair Display", serif;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.date-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.time-col, .year-col {
+  font-size: 18px;
+  color: #222;
+  width: 60px;
+}
+
+.divider {
+  width: 1px;
+  height: 50px;
+  background: #000;
+}
+
+.day-col {
+  text-align: center;
+}
+
+.day-number {
+  font-size: 24px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Lịch */
+.calendar-card {
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #fff;
+  margin: 30px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.calendar-header {
+  background: var(--bg-red);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  padding: 10px 15px;
+}
+
+.calendar-body {
+  padding: 15px 10px;
+  position: relative;
+}
+
+.bg-year {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.04);
+  pointer-events: none;
+}
+
+.weekdays, .days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.weekdays {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.days-grid {
+  row-gap: 8px;
+}
+
+.days-grid span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  font-size: 14px;
+}
+
+.wedding-day {
+  position: relative;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.wedding-day::before {
+  content: "";
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  border-radius: 50%;
+  z-index: -1;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+.heart-mark {
+  position: absolute;
+  font-size: 24px;
+  z-index: -1;
+}
+
+/* Địa điểm & Bản đồ */
+.venue-section {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.venue-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.map-icon {
+  font-size: 32px;
+}
+
+.venue-name {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-dark);
+}
+
+.venue-address {
+  font-style: italic;
+  color: var(--text-muted);
+  margin: 8px 0 15px;
+}
+
+.map-container {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.open-map-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  padding: 12px 24px;
+  background: var(--primary-color);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(139, 29, 36, 0.3);
+  transition: all 0.3s;
+}
+
+.open-map-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+/* RSVP Form */
+.rsvp-section {
+  padding: 20px 0;
+}
+
+.rsvp-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.stamp-icon {
+  font-size: 42px;
+  color: var(--primary-color);
+}
+
+.rsvp-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.card-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #444;
+  font-weight: 500;
+}
+
+.form-group input[type=text] {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.form-group input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(139, 29, 36, 0.1);
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.radio-option input {
+  display: none;
+}
+
+.radio-custom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cbd5e0;
+  border-radius: 50%;
+  position: relative;
+}
+
+.radio-option input:checked + .radio-custom {
+  border-color: var(--primary-color);
+}
+
+.radio-option input:checked + .radio-custom::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: var(--primary-color);
+  border-radius: 50%;
+}
+
+.submit-btn {
+  padding: 12px;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover {
+  background: var(--primary-hover);
+}
+
+/* Trích dẫn & Ảnh */
+.love-quote-section {
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.quote-text {
+  font-family: "Dancing Script", cursive;
+  font-size: 22px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.card-hero-photo {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.names-side {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Dancing Script", cursive;
+  font-size: 36px;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.names-side .ampersand {
+  font-size: 24px;
+  color: var(--gold);
+}
+
+.photo-side {
+  width: 65%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.photo-side img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Gallery lưới */
+.story-gallery-section {
+  padding: 20px 5px;
+  text-align: center;
+}
+
+.grid-2-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.grid-1-col {
+  margin-bottom: 10px;
+}
+
+.img-box img {
+  width: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.img-box img:hover {
+  transform: scale(1.02);
+}
+
+.chapter-title {
+  margin: 20px 0;
+}
+
+.chapter-title h3 {
+  font-family: "Dancing Script", cursive;
+  font-size: 32px;
+  color: var(--primary-color);
+}
+
+.sub-quote {
+  font-style: italic;
+  color: #555;
+  font-size: 13px;
+}
+
+/* ==========================================
+   SECTION: CẢM ƠN CUỐI TRANG
+========================================== */
+.thank-you-section {
+  position: relative;
+  margin-top: 35px;
+  padding: 35px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, #fff8f8, #fff);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.thank-you-border-top,
+.thank-you-border-bottom {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+
+.thank-you-border-top {
+  top: 12px;
+}
+
+.thank-you-border-bottom {
+  bottom: 12px;
+}
+
+.thank-you-content {
+  position: relative;
+  z-index: 2;
+}
+
+.thank-you-quote {
+  font-family: "Playfair Display", serif;
+  font-size: 15px;
+  font-style: italic;
+  color: #7a2026;
+  opacity: 0.85;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.thank-you-title {
+  font-family: "Dancing Script", "Alex Brush", cursive;
+  font-size: 36px;
+  color: #6C2224;
+  font-weight: 700;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(139, 29, 36, 0.1);
+}
+
+.thank-you-names {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-family: "Dancing Script", cursive;
+  font-size: 24px;
+  color: #8b1d24;
+  margin-bottom: 10px;
+}
+
+.heart-icon {
+  font-size: 22px;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.thank-you-date {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #999;
+  letter-spacing: 3px;
+  margin-top: 8px;
+}
+
+/* ==========================================
+   SECTION: GỬI LỜI CHÚC
+========================================== */
+.wish-section {
+  padding: 30px 15px;
+  text-align: center;
+}
+
+.wish-intro {
+  font-family: "Dancing Script", cursive;
+  font-size: 20px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.wish-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.wish-form input,
+.wish-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s;
+  font-family: "Montserrat", sans-serif;
+}
+
+.wish-form input:focus,
+.wish-form textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(139, 29, 36, 0.1);
+}
+
+.wish-form textarea {
+  min-height: 90px;
+  resize: none;
+}
+
+/* ==========================================
+   SECTION: GỬI LỜI CHÚC - CHẠY DỌC
+========================================== */
+.wish-section {
+  padding: 30px 15px;
+  text-align: center;
+}
+
+.wish-intro {
+  font-family: "Dancing Script", cursive;
+  font-size: 20px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.wish-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.wish-form input,
+.wish-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s;
+  font-family: "Montserrat", sans-serif;
+}
+
+.wish-form input:focus,
+.wish-form textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(139, 29, 36, 0.1);
+}
+
+.wish-form textarea {
+  min-height: 80px;
+  resize: none;
+}
+
+/* KHU VỰC LỜI CHÚC CHẠY DỌC TỪ TRÊN XUỐNG */
+.wish-display-box {
+  background: linear-gradient(180deg, #fff5f7, #fff9f0, #fff5f7);
+  border-radius: 16px;
+  padding: 15px;
+  height: 220px; /* Chiều cao cố định khung cuộn */
+  overflow: hidden;
+  border: 2px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 4px 15px rgba(139, 29, 36, 0.08);
+}
+
+.wish-scroll-wrap-vertical {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.wish-scroll-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: scrollDown 20s linear infinite; /* Số giây = tốc độ */
+}
+
+.wish-item {
+  text-align: left;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
+.wish-item .wish-sender {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  color: var(--primary-color);
+  font-size: 14px;
+  display: block;
+}
+
+.wish-item .wish-msg {
+  font-family: "Dancing Script", cursive;
+  font-size: 15px;
+  color: #333;
+  margin-left: 4px;
+}
+
+/* HIỆU ỨNG CHẠY DỌC TỪ TRÊN XUỐNG LIÊN TỤC */
+@keyframes scrollDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  } /* Chạy đúng 1 nửa = liền không khoảng trống */
+}
+/* HIỆU ỨNG CHẠY NGANG */
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}/*# sourceMappingURL=styles.css.map */
