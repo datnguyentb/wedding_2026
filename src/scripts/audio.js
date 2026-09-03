@@ -28,7 +28,7 @@ function playRandomSong() {
             .play()
             .then(() => {
                 isMusicPlaying = true;
-                if (musicBtn) musicBtn.textContent = '🎵git s';
+                if (musicBtn) musicBtn.textContent = '🎵';
             })
             .catch((e) => console.log('Trình duyệt chặn tự động phát:', e));
     }, 500);
