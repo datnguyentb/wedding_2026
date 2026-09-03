@@ -335,6 +335,7 @@
                 </section>
 
                 <!-- SECTION: GỬI LỜI CHÚC -->
+                <!-- SECTION: GỬI LỜI CHÚC -->
                 <section class="wish-section scroll-reveal">
                     <h2 class="script-title">💌 Gửi Lời Chúc</h2>
                     <p class="wish-intro">Để lại lời chúc ngọt ngào cho chúng tôi nhé ❤️</p>
@@ -344,9 +345,44 @@
                         </div>
                         <div class="form-group">
                             <textarea id="wishMessage" placeholder="Viết lời chúc tại đây..." required></textarea>
+
+                            <!-- ✅ KHỐI GỢI Ý LỜI CHÚC NHANH -->
+                            <div class="wish-suggestions">
+                                <span class="suggest-label">💡 Gợi ý nhanh:</span>
+                                <button
+                                    type="button"
+                                    class="suggest-btn"
+                                    data-text="Chúc hai bạn trăm năm hạnh phúc, mãi yêu thương nhau! 💍"
+                                >
+                                    Trăm năm hạnh phúc
+                                </button>
+                                <button
+                                    type="button"
+                                    class="suggest-btn"
+                                    data-text="Mãi đồng tâm đồng ý, xây dựng tổ ấm thật hạnh phúc! ❤️"
+                                >
+                                    Đồng tâm đồng lòng
+                                </button>
+                                <button
+                                    type="button"
+                                    class="suggest-btn"
+                                    data-text="Chúc tình yêu của hai bạn ngày một đong đầy, hạnh phúc viên mãn! 💐"
+                                >
+                                    Tình yêu đong đầy
+                                </button>
+                                <button
+                                    type="button"
+                                    class="suggest-btn"
+                                    data-text="Tân hạnh đại lý, trọn đời bên nhau, hạnh phúc mãi mãi! 💒"
+                                >
+                                    Tân hạnh đại lý
+                                </button>
+                            </div>
                         </div>
                         <button type="submit" class="submit-btn">💝 Gửi Lời Chúc</button>
                     </form>
+
+                    <!-- ✅ KHU VỰC HIỂN THỊ LỜI CHÚC VẪN NGUYÊN NHƯ CŨ -->
                     <div class="wish-display-box">
                         <div class="wish-scroll-wrap-vertical">
                             <div class="wish-scroll-vertical" id="wishScroll"></div>
@@ -419,6 +455,6 @@
 
         <script src="./src/scripts/audio.js"></script>
         <script src="./src/scripts/main.js"></script>
-        <!-- <script src="./src/scripts/wishScripts.js"></script> -->
+        <script src="./src/scripts/wishScripts.js"></script>
     </body>
 </html>

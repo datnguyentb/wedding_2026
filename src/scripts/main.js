@@ -80,47 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================
-// 6. GỬI LỜI CHÚC & HIỂN THỊ CHẠY DỌC
-// ==========================================
-const wishForm = document.getElementById('wishForm');
-const wishScroll = document.getElementById('wishScroll');
-
-let wishList = [
-    { name: 'Hồng Nhung', msg: 'Đồng tâm đồng lòng, xây dựng tổ ấm thật vượng!' },
-    { name: 'Duy Đức', msg: 'Chúc cho tình yêu của hai bạn mãi ngày một lớn mạnh!' },
-    { name: 'Phương', msg: 'Chúc hai bạn trăm năm hòa hợp, hạnh phúc!' },
-    { name: 'Thu Hà', msg: 'Tân hạnh hạnh phúc, trăm năm bên nhau!' },
-];
-
-function renderWishes() {
-    wishScroll.innerHTML = '';
-    const fullList = [...wishList, ...wishList];
-    fullList.forEach((item) => {
-        const div = document.createElement('div');
-        div.className = 'wish-item';
-        div.innerHTML = `
-      <span class="wish-sender">${item.name}:</span>
-      <span class="wish-msg">${item.msg}</span>
-    `;
-        wishScroll.appendChild(div);
-    });
-}
-
-wishForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('wishName').value.trim();
-    const msg = document.getElementById('wishMessage').value.trim();
-    if (name && msg) {
-        wishList.push({ name, msg });
-        renderWishes();
-        wishForm.reset();
-        alert('💝 Cảm ơn bạn đã gửi lời chúc!');
-    }
-});
-
-renderWishes();
-
-// ==========================================
 // 7. XÁC NHẬN THAM DỰ
 // ==========================================
 const rsvpForm = document.getElementById('rsvpForm');
