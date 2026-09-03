@@ -45,27 +45,36 @@
     <link rel="icon" type="image/jpeg" href="./src/assets/images/logo.PNG" />
 
     <body>
-        <!-- ======================================
-        MÀN HÌNH MỞ THIỆP
-    ====================================== -->
+        <!-- ======================================MÀN HÌNH MỞ THIỆP - KIỂU MỚI====================================== -->
         <div id="coverPage">
             <div class="cover-bg"></div>
-            <div class="cover-content">
-                <p class="cover-sub">Chào mừng đến với tình yêu của chúng tôi</p>
-                <h2 class="cover-names">Thanh Huy &ensp;❤️&ensp; Phương Thúy</h2>
-                <p class="cover-date">27 · 09 · 2026</p>
-                <button id="openInvitationBtn" class="open-invitation-btn">💌 Mở Thiệp Cưới</button>
+            <div class="cover-card">
+                <!-- Hoa trái -->
+                <div class="floral-decoration left">
+                    <img src="./src/assets/images/flower2-decoration.webp" alt="Hoa trang trí" />
+                </div>
+
+                <!-- Nội dung trung tâm -->
+                <div class="cover-card-content">
+                    <div class="heart-icon-circle">❤️</div>
+                    <h2 class="cover-names">Anh Khương<br />&<br />Thu Huế</h2>
+                    <div class="divider-line">
+                        <span class="divider-dot">✿</span>
+                    </div>
+                    <p class="cover-date">20 tháng 9, 2026</p>
+                    <p class="cover-greeting">Thân Mời</p>
+                    <button id="openInvitationBtn" class="open-invitation-btn">Mở thiệp</button>
+                </div>
+
+                <!-- Hoa phải -->
+                <div class="floral-decoration right">
+                    <img src="./src/assets/images/flower2-decoration.webp" alt="Hoa trang trí" />
+                </div>
             </div>
         </div>
-
-        <!-- ======================================
-        HIỆU ỨNG ICON RƠI NỀN
-    ====================================== -->
         <div id="heartsRain"></div>
 
-        <!-- ======================================
-        NỘI DUNG THIỆP CHÍNH
-    ====================================== -->
+        <!-- ====================================== NỘI DUNG THIỆP CHÍNH====================================== -->
         <div id="container-cover" class="main-content">
             <!-- Nút Nhạc -->
             <button class="music-btn" id="musicBtn">🎵</button>
@@ -480,5 +489,6 @@
         </div>
 
         <script src="./src/scripts/main.js"></script>
+        <script src="./src/scripts/wishScripts.js"></script>
     </body>
 </html>

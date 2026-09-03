@@ -3,10 +3,10 @@
    BIẾN & FONTS
 ========================================== */
 :root {
-  --bg-red: #6C2224;
-  --card-bg: #FFFFFF;
-  --text-light: #FFFFFF;
-  --text-dark: #2C2C2C;
+  --bg-red: #6c2224;
+  --card-bg: #ffffff;
+  --text-light: #ffffff;
+  --text-dark: #2c2c2c;
   --primary-color: #8b1d24;
   --primary-hover: #6a1319;
   --text-muted: #666666;
@@ -92,7 +92,7 @@
 }
 
 /* ==========================================
-   MÀN HÌNH MỞ THIỆP
+    MÀN HÌNH MỞ THIỆP - ĐÃ SỬA: HOA ĐỐI XỨNG + CHỮ ĐẸP + HIỆU ỨNG NÚT
 ========================================== */
 #coverPage {
   position: fixed;
@@ -113,58 +113,243 @@
 .cover-bg {
   position: absolute;
   inset: 0;
-  background: url("https://t4.ftcdn.net/jpg/06/60/71/63/360_F_660716357_vO9kSlAm5D57hswPN4KxZJBpBnZNxsno.jpg") center/cover no-repeat;
-  filter: brightness(0.75);
+  background: linear-gradient(135deg, #4b0f12 0%, #6c2224 50%, #7a1f22 100%);
 }
 
-.cover-content {
+/* ========== KHUNG THIỆP ========== */
+.cover-card {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px; /* Tăng khoảng cách hoa - nội dung */
+  background: #fff9f2;
+  padding: 50px 30px;
+  border-radius: 24px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
   z-index: 2;
-  text-align: center;
-  color: #fff;
-  padding: 30px;
+  width: 92%;
+  max-width: 540px;
+  min-height: 620px;
+  box-sizing: border-box;
 }
 
-.cover-sub {
-  font-family: "Dancing Script", cursive;
-  font-size: 22px;
+/* ========== HOA TRANG TRÍ — TO, ĐỐI XỨNG, KHÔNG BÁM RÌA ========== */
+.floral-decoration {
+  width: 105px; /* Hoa to hơn */
+  flex-shrink: 0; /* Không bị co lại */
+  display: flex;
+  align-items: center;
+}
+
+.floral-decoration.left {
+  justify-content: flex-start;
+}
+
+.floral-decoration.right {
+  justify-content: flex-end;
+  transform: scaleX(-1); /* ✅ LẬT ĐỔI XỨNG GƯƠNG so với bên trái */
+}
+
+.floral-decoration img {
+  width: 100%;
+  height: auto;
+  opacity: 0.95;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+  padding: 4px; /* ✅ Tạo khoảng trống, KHÔNG bám ra rìa khung */
+  box-sizing: border-box;
+}
+
+/* ========== NỘI DUNG GIỮA ========== */
+.cover-card-content {
+  flex: 1;
+  text-align: center;
+  padding: 0 5px;
+  min-width: 0; /* Ngăn tràn ra */
+}
+
+/* NÚT TRÒN TRÁI TIM */
+.heart-icon-circle {
+  width: 56px;
+  height: 56px;
+  background: #6c2224;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  font-size: 24px;
+  box-shadow: 0 4px 14px rgba(108, 34, 36, 0.35);
+  flex-shrink: 0;
+}
+
+/* TÊN CẶP ĐÔI — KHÔNG BỊ XUỐNG DÒNG SAI */
+.cover-names {
+  font-family: "Alex Brush", "Great Vibes", "Dancing Script", cursive;
+  font-size: 44px;
+  color: #5c1216;
+  margin-bottom: 12px;
+  font-weight: 400;
+  line-height: 1.25;
+  white-space: nowrap; /* ✅ Giữ trên cùng 1 dòng, chỉ xuống tại <br> */
+  letter-spacing: 1px;
+}
+
+.cover-names br {
+  display: block;
+  content: "";
+  margin: 4px 0;
+}
+
+/* ĐƯỜNG KẺ NGĂN CÁCH */
+.divider-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0 16px;
+}
+
+.divider-line::before,
+.divider-line::after {
+  content: "";
+  width: 50px;
+  height: 1px;
+  background: #8b1d24;
+  opacity: 0.5;
+}
+
+.divider-dot {
+  font-size: 14px;
+  color: #8b1d24;
+}
+
+/* NGÀY THÁNG */
+.cover-date {
+  font-family: "Playfair Display", serif;
+  font-size: 17px;
+  color: #7a2026;
+  letter-spacing: 1px;
   margin-bottom: 10px;
   opacity: 0.9;
 }
 
-.cover-names {
-  font-family: "Dancing Script", cursive;
-  font-size: 42px;
-  margin-bottom: 15px;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
-}
-
-.cover-date {
-  font-size: 18px;
-  letter-spacing: 2px;
-  margin-bottom: 35px;
+/* CHỮ THÂN MỜI */
+.cover-greeting {
+  font-family: "Alex Brush", "Great Vibes", cursive;
+  font-size: 21px;
+  color: #7a2026;
+  margin-bottom: 30px;
   opacity: 0.85;
+  font-style: italic;
 }
 
+/* ========== NÚT MỞ THIỆP + HIỆU ỨNG ÁNH SÁNG CHẠY ========== */
 .open-invitation-btn {
-  padding: 14px 32px;
-  background: linear-gradient(135deg, #8b1d24, #6C2224);
-  color: #fff;
+  position: relative;
+  overflow: hidden;
+  padding: 15px 44px;
+  background: linear-gradient(135deg, #6c2224, #5c1216);
+  color: #fff9f2;
   border: none;
   border-radius: 50px;
   font-size: 17px;
   font-family: "Montserrat", sans-serif;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 20px rgba(108, 34, 36, 0.4);
   transition: all 0.3s ease;
 }
 
-.open-invitation-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+/* ✅ HIỆU ỨNG ÁNH SÁNG DI CHUYỂN LIÊN TỤC */
+.open-invitation-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-25deg);
+  animation: shine 2.5s ease-in-out infinite;
 }
 
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+.open-invitation-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(108, 34, 36, 0.5);
+  background: linear-gradient(135deg, #7a2528, #6c2224);
+}
+
+/* ==========================================
+  📱 ĐIỆN THOẠI — TỐI ƯU CHỮ + HOA
+========================================== */
+@media (max-width: 768px) {
+  .cover-card {
+    padding: 40px 18px;
+    gap: 10px;
+    min-height: 540px;
+  }
+  /* Hoa vẫn to, không bám rìa */
+  .floral-decoration {
+    width: 80px;
+  }
+  /* ✅ Chữ vừa phải, KHÔNG bị xuống dòng sai */
+  .cover-names {
+    font-size: 30px;
+    white-space: normal; /* Cho phép tự xuống dòng hợp lý */
+    text-align: center;
+  }
+  .heart-icon-circle {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+  .divider-line::before,
+  .divider-line::after {
+    width: 32px;
+  }
+  .open-invitation-btn {
+    padding: 13px 36px;
+    font-size: 16px;
+  }
+}
+/* 📱 Điện thoại nhỏ */
+@media (max-width: 420px) {
+  .cover-card {
+    padding: 30px 12px;
+    gap: 6px;
+  }
+  .floral-decoration {
+    width: 68px;
+  }
+  .cover-names {
+    font-size: 26px;
+    letter-spacing: 0.5px;
+  }
+  .cover-date {
+    font-size: 15px;
+  }
+  .cover-greeting {
+    font-size: 18px;
+  }
+  .open-invitation-btn {
+    padding: 12px 30px;
+    font-size: 15px;
+  }
+}
 /* ==========================================
    HIỆU ỨNG ICON RƠI NỀN
 ========================================== */
@@ -471,7 +656,7 @@ body.invitation-opened .main-content {
 }
 
 .gift-box-btn:hover .gift-btn-text {
-  color: #6C2224;
+  color: #6c2224;
   text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
 }
 
@@ -838,7 +1023,8 @@ body.invitation-opened .main-content {
   gap: 15px;
 }
 
-.time-col, .year-col {
+.time-col,
+.year-col {
   font-size: 18px;
   color: #222;
   width: 60px;
@@ -893,7 +1079,8 @@ body.invitation-opened .main-content {
   pointer-events: none;
 }
 
-.weekdays, .days-grid {
+.weekdays,
+.days-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
@@ -1247,7 +1434,7 @@ body.invitation-opened .main-content {
 .thank-you-title {
   font-family: "Dancing Script", "Alex Brush", cursive;
   font-size: 36px;
-  color: #6C2224;
+  color: #6c2224;
   font-weight: 700;
   margin-bottom: 15px;
   letter-spacing: 1px;
