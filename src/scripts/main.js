@@ -5,35 +5,35 @@ const coverPage = document.getElementById('coverPage');
 const openInvitationBtn = document.getElementById('openInvitationBtn');
 
 openInvitationBtn.addEventListener('click', () => {
-  coverPage.classList.add('hidden-cover');
-  document.body.classList.add('invitation-opened');
-  createFallingHearts(); // Bắt đầu rơi trái tim khi mở thiệp
+    coverPage.classList.add('hidden-cover');
+    document.body.classList.add('invitation-opened');
+    createFallingHearts(); // Bắt đầu rơi trái tim khi mở thiệp
 });
 
 // ==========================================
 // 2. HIỆU ỨNG ICON RƠI NỀN
 // ==========================================
 function createFallingHearts() {
-  const heartsRain = document.getElementById('heartsRain');
-  const hearts = ['❤️', '💕', '💗', '💖', '💘', '🤍', '💝'];
-  const total = 25;
+    const heartsRain = document.getElementById('heartsRain');
+    const hearts = ['❤️', '💕', '💗', '💖', '💘', '🤍', '💝'];
+    const total = 25;
 
-  for (let i = 0; i < total; i++) {
-    createHeart(heartsRain, hearts, i);
-  }
+    for (let i = 0; i < total; i++) {
+        createHeart(heartsRain, hearts, i);
+    }
 }
 
 function createHeart(container, hearts, index) {
-  const heart = document.createElement('span');
-  heart.className = 'heart-fall';
-  heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-  const size = Math.random() * 20 + 12;
-  heart.style.fontSize = size + 'px';
-  heart.style.left = Math.random() * 100 + '%';
-  const duration = Math.random() * 6 + 8;
-  heart.style.animationDuration = duration + 's';
-  heart.style.animationDelay = (index * 0.6) + 's';
-  container.appendChild(heart);
+    const heart = document.createElement('span');
+    heart.className = 'heart-fall';
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    const size = Math.random() * 20 + 12;
+    heart.style.fontSize = size + 'px';
+    heart.style.left = Math.random() * 100 + '%';
+    const duration = Math.random() * 6 + 8;
+    heart.style.animationDuration = duration + 's';
+    heart.style.animationDelay = index * 0.6 + 's';
+    container.appendChild(heart);
 }
 
 // ==========================================
@@ -41,43 +41,42 @@ function createHeart(container, hearts, index) {
 // ==========================================
 const weddingDate = new Date('2026-09-27T12:00:00');
 function updateCountdown() {
-  const now = new Date();
-  const diff = weddingDate - now;
-  if (diff <= 0) return;
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-  document.getElementById('days').textContent = days;
-  document.getElementById('hours').textContent = hours;
-  document.getElementById('minutes').textContent = minutes;
-  document.getElementById('seconds').textContent = seconds;
+    const now = new Date();
+    const diff = weddingDate - now;
+    if (diff <= 0) return;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    document.getElementById('days').textContent = days;
+    document.getElementById('hours').textContent = hours;
+    document.getElementById('minutes').textContent = minutes;
+    document.getElementById('seconds').textContent = seconds;
 }
 setInterval(updateCountdown, 1000);
 updateCountdown();
-
 
 // ==========================================
 // 5. HIỆU ỨNG LƯỚT ĐẾN ĐÂU HIỆN RA ĐÓ
 // ==========================================
 const observerOptions = {
-  root: null,
-  rootMargin: '0px 0px -10% 0px',
-  threshold: 0.1
+    root: null,
+    rootMargin: '0px 0px -10% 0px',
+    threshold: 0.1,
 };
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('active');
-      observer.unobserve(entry.target);
-    }
-  });
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+        }
+    });
 }, observerOptions);
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.scroll-reveal').forEach(el => {
-    observer.observe(el);
-  });
+    document.querySelectorAll('.scroll-reveal').forEach((el) => {
+        observer.observe(el);
+    });
 });
 
 // ==========================================
@@ -87,36 +86,36 @@ const wishForm = document.getElementById('wishForm');
 const wishScroll = document.getElementById('wishScroll');
 
 let wishList = [
-  { name: 'Hồng Nhung', msg: 'Đồng tâm đồng lòng, xây dựng tổ ấm thật vượng!' },
-  { name: 'Duy Đức', msg: 'Chúc cho tình yêu của hai bạn mãi ngày một lớn mạnh!' },
-  { name: 'Phương', msg: 'Chúc hai bạn trăm năm hòa hợp, hạnh phúc!' },
-  { name: 'Thu Hà', msg: 'Tân hạnh hạnh phúc, trăm năm bên nhau!' }
+    { name: 'Hồng Nhung', msg: 'Đồng tâm đồng lòng, xây dựng tổ ấm thật vượng!' },
+    { name: 'Duy Đức', msg: 'Chúc cho tình yêu của hai bạn mãi ngày một lớn mạnh!' },
+    { name: 'Phương', msg: 'Chúc hai bạn trăm năm hòa hợp, hạnh phúc!' },
+    { name: 'Thu Hà', msg: 'Tân hạnh hạnh phúc, trăm năm bên nhau!' },
 ];
 
 function renderWishes() {
-  wishScroll.innerHTML = '';
-  const fullList = [...wishList, ...wishList];
-  fullList.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'wish-item';
-    div.innerHTML = `
+    wishScroll.innerHTML = '';
+    const fullList = [...wishList, ...wishList];
+    fullList.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'wish-item';
+        div.innerHTML = `
       <span class="wish-sender">${item.name}:</span>
       <span class="wish-msg">${item.msg}</span>
     `;
-    wishScroll.appendChild(div);
-  });
+        wishScroll.appendChild(div);
+    });
 }
 
 wishForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const name = document.getElementById('wishName').value.trim();
-  const msg = document.getElementById('wishMessage').value.trim();
-  if (name && msg) {
-    wishList.push({ name, msg });
-    renderWishes();
-    wishForm.reset();
-    alert('💝 Cảm ơn bạn đã gửi lời chúc!');
-  }
+    e.preventDefault();
+    const name = document.getElementById('wishName').value.trim();
+    const msg = document.getElementById('wishMessage').value.trim();
+    if (name && msg) {
+        wishList.push({ name, msg });
+        renderWishes();
+        wishForm.reset();
+        alert('💝 Cảm ơn bạn đã gửi lời chúc!');
+    }
 });
 
 renderWishes();
@@ -126,15 +125,15 @@ renderWishes();
 // ==========================================
 const rsvpForm = document.getElementById('rsvpForm');
 rsvpForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const fullName = document.getElementById('fullName').value.trim();
-  const attendance = document.querySelector('input[name="attendance"]:checked').value;
-  if (attendance === 'yes') {
-    alert(`✅ Cảm ơn ${fullName}! Rất vui được đón bạn tham dự! 💍`);
-  } else {
-    alert(`💌 Cảm ơn ${fullName}! Chúng tôi sẽ gặp dịp khác nhé!`);
-  }
-  rsvpForm.reset();
+    e.preventDefault();
+    const fullName = document.getElementById('fullName').value.trim();
+    const attendance = document.querySelector('input[name="attendance"]:checked').value;
+    if (attendance === 'yes') {
+        alert(`✅ Cảm ơn ${fullName}! Rất vui được đón bạn tham dự! 💍`);
+    } else {
+        alert(`💌 Cảm ơn ${fullName}! Chúng tôi sẽ gặp dịp khác nhé!`);
+    }
+    rsvpForm.reset();
 });
 
 // ==========================================
@@ -169,8 +168,8 @@ giftPopupOverlay.addEventListener('click', (e) => {
 function downloadQR(imgId, fileName) {
     const img = document.getElementById(imgId);
     fetch(img.src)
-        .then(res => res.blob())
-        .then(blob => {
+        .then((res) => res.blob())
+        .then((blob) => {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -187,46 +186,3 @@ function downloadQR(imgId, fileName) {
             alert('📷 Mở ảnh trong tab mới → Nhấn Lưu ảnh...');
         });
 }
-
-// ==========================================
-// 🎵 NHẠC NỀN: TỰ ĐỘNG PHÁT KHI MỞ THIỆP + BẬT/TẮT
-// ==========================================
-const bgMusic = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
-let isMusicPlaying = false;
-
-// ✅ Tự động PHÁT NHẠC khi nhấn "Mở thiệp mời"
-openInvitationBtn.addEventListener('click', () => {
-    // ... (giữ nguyên code mở thiệp cũ)
-
-    // Bắt đầu phát nhạc
-    if (bgMusic && !isMusicPlaying) {
-        bgMusic.play().then(() => {
-            isMusicPlaying = true;
-            musicBtn.classList.add('playing');
-        }).catch(err => {
-            console.log('Trình duyệt chặn tự động phát → chờ người dùng nhấn nút');
-            // Trình duyệt hiện đại chặn tự động nhạc → chờ nhấn nút thủ công
-        });
-    }
-});
-
-// ✅ BẬT / TẮT khi nhấn vào icon nhạc
-musicBtn.addEventListener('click', () => {
-    if (!bgMusic) return;
-
-    if (isMusicPlaying) {
-        // ĐANG phát → TẮT
-        bgMusic.pause();
-        musicBtn.classList.remove('playing');
-        isMusicPlaying = false;
-    } else {
-        // ĐANG tắt → PHÁT
-        bgMusic.play().then(() => {
-            musicBtn.classList.add('playing');
-            isMusicPlaying = true;
-        }).catch(err => {
-            alert('❌ Không thể phát nhạc: ' + err.message);
-        });
-    }
-});
