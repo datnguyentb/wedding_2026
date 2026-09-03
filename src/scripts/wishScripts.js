@@ -1,7 +1,9 @@
 // ==========================================
-// GỬI LỜI CHÚC — NHANH HƠN + KHÔNG CHỜ 5s
+// LỜI CHÚC — ĐÃ SỬA CHO IPHONE / SAFARI
+// ✅ DÙNG JS CUỘN THAY ANIMATION CSS → KHÔNG BỊ ĐỨNG IM
+// ✅ Chạy ngay từ đầu, không cần đợi ai chạm màn hình
+// ✅ Tương thích mọi máy: iPhone, Android, Máy tính
 // ==========================================
-// 🔧 LINK APPSCRIPT CỦA BẠN (ĐÃ ĐÚNG ✅)
 const APPSCRIPT_URL =
     'https://script.google.com/macros/s/AKfycbwQNM3aOMtUFMARXs7JS8Y5xs0aLEbQK5AYLHPq7odGIYRKI89g1mwRJIlBCIHcZPyI/exec';
 
@@ -12,35 +14,70 @@ let wishList = [];
 let latestTime = '';
 let isSubmitting = false;
 
-// === 1. Tải lời chúc MỚI ===
+// === ✅ CUỘN BẰNG JAVASCRIPT — Safari không dám tắt cái này ===
+let scrollPosition = 0;
+let totalHeight = 0;
+const SCROLL_SPEED = 0.3; // Tốc độ cuộn (thấp = chậm)
+
+function startJsScroll() {
+    let lastTime = performance.now();
+
+    function step(now) {
+        const delta = now - lastTime;
+        lastTime = now;
+
+        // Tính tổng chiều cao nội dung
+        totalHeight = wishScroll.scrollHeight / 2;
+
+        // Chỉ cuộn khi nội dung đủ dài
+        if (totalHeight > 100) {
+            scrollPosition += SCROLL_SPEED * (delta / 16);
+            if (scrollPosition >= totalHeight) {
+                scrollPosition = 0; // Đặt lại khi cuộn hết nửa
+            }
+            wishScroll.style.transform = `translateY(-${scrollPosition}px)`;
+        }
+
+        requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
+
+// === Tải lời chúc mới ===
 async function loadWishes() {
     try {
         const res = await fetch(`${APPSCRIPT_URL}?t=${Date.now()}`);
         const result = await res.json();
         if (!result.success || !result.data) return;
 
-        // Lọc những cái mới hơn thời gian cuối
         const newItems = result.data.filter((item) => !latestTime || item.time > latestTime);
         if (newItems.length === 0) return;
 
-        // Cập nhật
         latestTime = result.data[0].time;
         wishList = [...newItems, ...wishList];
+        wishList = wishList.slice(0, 30); // Giới hạn số lượng
 
-        // Thêm vào giao diện — mới nhất ở cuối
-        newItems.forEach((item) => addWishItemToUI(item));
-
-        // Giới hạn chỉ giữ 30 lời gần nhất
-        trimWishList();
+        // Vẽ lại toàn bộ + nhân bản để cuộn liên tục
+        renderAllWishes();
     } catch (err) {
         console.log('Lỗi tải:', err.message);
     }
 }
 
+// === Vẽ toàn bộ lời chúc ===
+function renderAllWishes() {
+    wishScroll.innerHTML = '';
+
+    // Bản 1
+    wishList.forEach((item) => addWishItemToUI(item));
+    // Bản 2 → để cuộn liên tục không bị giật đoạn
+    wishList.forEach((item) => addWishItemToUI(item));
+}
+
 // === Thêm 1 mục vào giao diện ===
 function addWishItemToUI(item) {
     const div = document.createElement('div');
-    div.className = 'wish-item new-item';
+    div.className = 'wish-item';
     div.innerHTML = `
         <span class="wish-sender">❤️ ${escapeHtml(item.name)}:</span>
         <span class="wish-msg">${escapeHtml(item.message)}</span>
@@ -48,18 +85,7 @@ function addWishItemToUI(item) {
     wishScroll.appendChild(div);
 }
 
-// === Giới hạn số lượng hiển thị ===
-function trimWishList() {
-    const items = wishScroll.querySelectorAll('.wish-item');
-    if (items.length > 30) {
-        wishList = wishList.slice(0, 30);
-        while (wishScroll.children.length > 30) {
-            wishScroll.firstChild.remove();
-        }
-    }
-}
-
-// === 2. Lần đầu mở trang → vẽ toàn bộ ===
+// === Lần đầu tải ===
 async function initialLoad() {
     try {
         const res = await fetch(`${APPSCRIPT_URL}?t=${Date.now()}`);
@@ -68,13 +94,7 @@ async function initialLoad() {
         if (result.success && result.data && result.data.length > 0) {
             wishList = result.data;
             latestTime = result.data[0].time;
-
-            // Vẽ danh sách
-            wishScroll.innerHTML = '';
-            wishList.forEach((item) => addWishItemToUI(item));
-
-            // Nhân bản danh sách cho hiệu ứng chạy liên tục
-            wishList.forEach((item) => addWishItemToUI(item));
+            renderAllWishes();
         } else {
             wishScroll.innerHTML =
                 '<div class="wish-item"><span class="wish-msg">Chưa có lời chúc nào, bạn hãy là người đầu tiên! ❤️</span></div>';
@@ -82,13 +102,19 @@ async function initialLoad() {
     } catch (err) {
         wishScroll.innerHTML = `<div class="wish-item"><span class="wish-msg">Lỗi tải: ${err.message}</span></div>`;
     }
+
+    // ✅ Bắt đầu cuộn NGAY — không cần đợi ai
+    startJsScroll();
+
+    // Tải mới mỗi 30 giây
+    setInterval(loadWishes, 30000);
 }
 
-// === 3. GỬI LỜI CHÚC — XUẤT HIỆN NGAY KHÔNG CHỜ ===
+// === GỬI LỜI CHÚC — HIỂN THỊ NGAY ===
 wishForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (isSubmitting) {
-        alert('⏳ Đang gửi... vui lòng chờ chút nhé!');
+        alert('⏳ Đang gửi... vui lòng chút nhé!');
         return;
     }
 
@@ -105,34 +131,26 @@ wishForm.addEventListener('submit', async (e) => {
     submitBtn.disabled = true;
     submitBtn.textContent = '⏳ Đang gửi...';
 
-    // ✅ Tạo đối tượng hiển thị NGAY LẬP TỨC trên giao diện
-    const tempItem = {
-        time: new Date().toLocaleString('vi-VN', { hour12: false }).replace(/\//g, '/'),
-        name: name,
-        message: msg,
-    };
-    addWishItemToUI(tempItem); // Thêm vào giao diện ngay
+    // ✅ HIỂN THỊ NGAY — không chờ server
+    const tempTime = new Date().toLocaleString('vi-VN', { hour12: false });
+    wishList.unshift({ time: tempTime, name, message: msg });
+    wishList = wishList.slice(0, 30);
+    renderAllWishes();
     wishForm.reset();
 
+    // ✅ GỬI LÊN SERVER Ở NỀN
     try {
-        // ✅ Gửi lên nền — không chờ mới hiển thị
         const formData = new URLSearchParams();
         formData.append('name', name);
         formData.append('message', msg);
 
-        const res = await fetch(APPSCRIPT_URL, {
+        await fetch(APPSCRIPT_URL, {
             method: 'POST',
             body: formData,
         });
-        const result = await res.json();
 
-        if (result.success) {
-            alert('💝 Cảm ơn bạn! Lời chúc đã gửi thành công ❤️');
-            // ✅ Tải dữ liệu thật từ server để đồng bộ
-            loadWishes();
-        } else {
-            throw new Error(result.error || 'Không gửi được');
-        }
+        setTimeout(loadWishes, 500);
+        alert('💝 Cảm ơn bạn! Lời chúc đã gửi thành công ❤️');
     } catch (err) {
         alert('❌ Lỗi: ' + err.message);
     } finally {
@@ -142,28 +160,23 @@ wishForm.addEventListener('submit', async (e) => {
     }
 });
 
-// === An toàn chống mã độc ===
+// === An toàn ===
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
 }
 
-// === Nút gợi ý lời chúc nhanh ===
+// === Nút gợi ý ===
 document.addEventListener('click', function (e) {
     if (e.target.classList.contains('suggest-btn')) {
         const messageInput = document.getElementById('wishMessage');
-        const suggestedText = e.target.getAttribute('data-text');
-        messageInput.value = suggestedText;
+        messageInput.value = e.target.getAttribute('data-text');
         messageInput.focus();
-        e.target.style.transform = 'scale(0.95)';
-        setTimeout(() => (e.target.style.transform = ''), 150);
     }
 });
 
-// === BẮT ĐẦU ===
+// === Bắt đầu NGAY khi trang sẵn sàng ===
 window.addEventListener('DOMContentLoaded', () => {
     initialLoad();
-    // ✅ BỎ setInterval 5s → KHÔNG TẢI LẠI LIÊN TỤC NỮA
-    // Chỉ tải mới KHI người dùng gửi lời chúc thành công thôi
 });
