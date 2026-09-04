@@ -1505,13 +1505,6 @@ body.invitation-opened .main-content {
   position: relative;
 }
 
-.wish-intro::after {
-  content: "💕";
-  display: block;
-  font-size: 20px;
-  margin-top: 5px;
-}
-
 .wish-form {
   display: flex;
   flex-direction: column;
