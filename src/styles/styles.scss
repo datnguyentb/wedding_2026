@@ -1374,22 +1374,166 @@ body.invitation-opened .main-content {
 }
 
 /* ==========================================
-   KHU VỰC LỜI CHÚC — ĐÃ TƯƠNG THÍCH IPHONE
-   ✅ Bỏ animation CSS trên khung → không bị Safari chặn
-   ✅ Luôn hiện rõ, không nhấp nháy
+   SECTION: GỬI LỜI CHÚC - KIỂU LIVESTREAM
+========================================== */
+.wish-section {
+    padding: 40px 20px;
+    text-align: center;
+    background: linear-gradient(180deg, #fff9f9 0%, #fff5f5 100%);
+    border-radius: 24px;
+    margin: 30px 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.wish-section::before,
+.wish-section::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+.wish-section::before {
+    top: 15px;
+}
+.wish-section::after {
+    bottom: 15px;
+}
+
+.wish-intro {
+    font-family: 'Dancing Script', cursive;
+    font-size: 24px;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    position: relative;
+}
+.wish-intro::after {
+    content: '💕';
+    display: block;
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+.wish-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.wish-form input,
+.wish-form textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #f0d0d0;
+    border-radius: 14px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: inset 0 2px 4px rgba(139, 29, 36, 0.03);
+}
+
+.wish-form input:focus,
+.wish-form textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(139, 29, 36, 0.08), 0 4px 12px rgba(139, 29, 36, 0.1);
+    transform: translateY(-2px);
+    background: #fff;
+}
+
+.wish-form textarea {
+    min-height: 100px;
+    resize: none;
+}
+
+/* === GỢI Ý LỜI CHÚC NHANH === */
+.wish-suggestions {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 8px;
+    align-items: center;
+    text-align: left;
+}
+
+.suggest-label {
+    font-size: 14px;
+    color: var(--primary-color);
+    font-style: italic;
+    font-weight: 500;
+}
+
+.suggest-btn {
+    padding: 7px 14px;
+    background: linear-gradient(135deg, #fff0f0, #ffe8e8);
+    color: var(--primary-color);
+    border: 1px solid #ffd0d0;
+    border-radius: 24px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+.suggest-btn:hover {
+    background: linear-gradient(135deg, var(--primary-color), #7a1f22);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(139, 29, 36, 0.25);
+}
+
+.suggest-btn:active {
+    transform: translateY(0);
+}
+
+/* === NÚT GỬI LỜI CHÚC === */
+.wish-form .submit-btn {
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary-color), #7a1f22);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 5px;
+    box-shadow: 0 6px 16px rgba(139, 29, 36, 0.3);
+}
+
+.wish-form .submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(139, 29, 36, 0.35);
+    background: linear-gradient(135deg, #7a1f22, var(--primary-color));
+}
+
+/* ==========================================
+   KHU VỰC HIỂN THỊ — KIỂU LIVESTREAM
+   Lời chúc MỚI nhất ở DƯỚI, đi LÊN trên
+   DƯỚI đậm rõ → dần LÊN mờ dần → mờ hẳn ở trên
 ========================================== */
 .wish-display-box {
     background: linear-gradient(180deg, #fff8f8, #ffffff);
     border-radius: 20px;
     padding: 15px 15px 10px;
-    height: 240px;
-    max-height: 40vh;
+    height: 300px;
     overflow: hidden;
     border: 2px solid rgba(212, 175, 55, 0.35);
     box-shadow: 0 8px 28px rgba(139, 29, 36, 0.12), inset 0 0 30px rgba(212, 175, 55, 0.05);
     position: relative;
 }
 
+/* Tiêu đề cố định ở trên cùng */
 .wish-display-box::before {
     content: '💬 Lời chúc & Bình luận 💬';
     display: block;
@@ -1397,34 +1541,42 @@ body.invitation-opened .main-content {
     font-family: 'Dancing Script', cursive;
     font-size: 17px;
     color: var(--primary-color);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     padding-bottom: 8px;
     border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
     position: relative;
     z-index: 5;
 }
 
+/* MÀ TRẮNG MỜ Ở ĐẦU TRÊN — che mờ lời chúc khi đi ra trên cùng */
 .wish-display-box::after {
-    display: none;
+    content: '';
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(180deg, #fff8f8, transparent);
+    pointer-events: none;
+    z-index: 3;
 }
 
 .wish-scroll-wrap-vertical {
     width: 100%;
-    height: calc(100% - 35px);
+    height: calc(100% - 40px);
     overflow: hidden;
     position: relative;
 }
 
-/* ✅ BỎ HOÀN TOÀN ANIMATION CSS Ở ĐÂY → ĐỂ JS ĐIỀU KHIỂN */
+/* ✅ CHẠY TỪ DƯỚI LÊN + NHANH HƠN (15s) */
 .wish-scroll-vertical {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse; /* MỚI NHẤT Ở DƯỚI ✅ */
     gap: 10px;
-    position: relative;
-    transform: translateY(0); /* Vị trí rõ ràng ngay từ đầu */
+    animation: scrollUp 20s linear infinite; /* chạy LÊN trên + nhanh hơn ✅ */
+    transform-origin: bottom center;
 }
 
-/* ✅ Luôn hiện rõ 100% — KHÔNG BAO GIỜ ẨN */
 .wish-item {
     text-align: left;
     padding: 8px 12px;
@@ -1433,11 +1585,40 @@ body.invitation-opened .main-content {
     line-height: 1.5;
     border-left: 3px solid var(--gold);
     box-shadow: 0 2px 6px rgba(139, 29, 36, 0.05);
-    opacity: 1 !important;
-    transform: none !important;
-    flex-shrink: 0;
-    width: 100%;
-    box-sizing: border-box;
+    opacity: 1; /* ✅ Luôn rõ 100% */
+    /* Không có animation mờ nữa */
+}
+
+/* Tạo độ trễ mờ dần cho từng item — trông tự nhiên như livestream */
+.wish-item:nth-child(1) {
+    animation-delay: 0s;
+}
+.wish-item:nth-child(2) {
+    animation-delay: 1s;
+}
+.wish-item:nth-child(3) {
+    animation-delay: 2s;
+}
+.wish-item:nth-child(4) {
+    animation-delay: 3s;
+}
+.wish-item:nth-child(5) {
+    animation-delay: 4s;
+}
+.wish-item:nth-child(6) {
+    animation-delay: 5s;
+}
+.wish-item:nth-child(7) {
+    animation-delay: 6s;
+}
+.wish-item:nth-child(8) {
+    animation-delay: 7s;
+}
+.wish-item:nth-child(9) {
+    animation-delay: 8s;
+}
+.wish-item:nth-child(10) {
+    animation-delay: 9s;
 }
 
 .wish-item .wish-sender {
@@ -1451,32 +1632,13 @@ body.invitation-opened .main-content {
     content: '✨ ';
     font-size: 11px;
 }
+
 .wish-item .wish-msg {
     font-family: 'Dancing Script', cursive;
     font-size: 15px;
     color: #3a3a3a;
     margin-left: 0;
     line-height: 1.4;
-}
-
-/* 📱 Điện thoại */
-@media (max-width: 420px) {
-    .wish-section {
-        padding: 30px 15px;
-        margin: 20px 5px;
-    }
-    .wish-intro {
-        font-size: 20px;
-    }
-    .wish-display-box {
-        height: 200px;
-    }
-    .wish-item {
-        padding: 7px 10px;
-    }
-    .wish-item .wish-msg {
-        font-size: 14px;
-    }
 }
 
 /* ✅ CHẠY TỪ DƯỚI LÊN */

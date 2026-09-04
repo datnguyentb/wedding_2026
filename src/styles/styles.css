@@ -1621,7 +1621,7 @@ body.invitation-opened .main-content {
   background: linear-gradient(180deg, #fff8f8, #ffffff);
   border-radius: 20px;
   padding: 15px 15px 10px;
-  height: 240px;
+  height: 300px;
   overflow: hidden;
   border: 2px solid rgba(212, 175, 55, 0.35);
   box-shadow: 0 8px 28px rgba(139, 29, 36, 0.12), inset 0 0 30px rgba(212, 175, 55, 0.05);
