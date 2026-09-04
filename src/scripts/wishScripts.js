@@ -21,23 +21,25 @@ const SCROLL_SPEED = 0.3; // Tốc độ cuộn (thấp = chậm)
 
 function startJsScroll() {
     let lastTime = performance.now();
-
     function step(now) {
         const delta = now - lastTime;
         lastTime = now;
 
-        // Tính tổng chiều cao nội dung
-        totalHeight = wishScroll.scrollHeight / 2;
-
-        // Chỉ cuộn khi nội dung đủ dài
-        if (totalHeight > 100) {
-            scrollPosition += SCROLL_SPEED * (delta / 16);
-            if (scrollPosition >= totalHeight) {
-                scrollPosition = 0; // Đặt lại khi cuộn hết nửa
-            }
-            wishScroll.style.transform = `translateY(-${scrollPosition}px)`;
+        // ✅ Đợi nội dung đã vẽ xong mới tính chiều cao
+        if (wishScroll.children.length > 0) {
+            totalHeight = wishScroll.scrollHeight / 2; // Vì nhân bản 2 lần
         }
 
+        if (totalHeight > 50) {
+            scrollPosition += SCROLL_SPEED * (delta / 16);
+
+            // ✅ Reset mượt mà, không bị giật
+            if (scrollPosition >= totalHeight) {
+                scrollPosition = 0;
+            }
+
+            wishScroll.style.transform = `translateY(-${scrollPosition}px)`;
+        }
         requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
@@ -67,10 +69,7 @@ async function loadWishes() {
 // === Vẽ toàn bộ lời chúc ===
 function renderAllWishes() {
     wishScroll.innerHTML = '';
-
-    // Bản 1
     wishList.forEach((item) => addWishItemToUI(item));
-    // Bản 2 → để cuộn liên tục không bị giật đoạn
     wishList.forEach((item) => addWishItemToUI(item));
 }
 

@@ -1668,7 +1668,6 @@ body.invitation-opened .main-content {
   display: flex;
   flex-direction: column-reverse; /* MỚI NHẤT Ở DƯỚI ✅ */
   gap: 10px;
-  animation: scrollUp 20s linear infinite; /* chạy LÊN trên + nhanh hơn ✅ */
   transform-origin: bottom center;
 }
 
@@ -1680,49 +1679,7 @@ body.invitation-opened .main-content {
   line-height: 1.5;
   border-left: 3px solid var(--gold);
   box-shadow: 0 2px 6px rgba(139, 29, 36, 0.05);
-  opacity: 1; /* ✅ Luôn rõ 100% */
-  /* Không có animation mờ nữa */
-}
-
-/* Tạo độ trễ mờ dần cho từng item — trông tự nhiên như livestream */
-.wish-item:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.wish-item:nth-child(2) {
-  animation-delay: 1s;
-}
-
-.wish-item:nth-child(3) {
-  animation-delay: 2s;
-}
-
-.wish-item:nth-child(4) {
-  animation-delay: 3s;
-}
-
-.wish-item:nth-child(5) {
-  animation-delay: 4s;
-}
-
-.wish-item:nth-child(6) {
-  animation-delay: 5s;
-}
-
-.wish-item:nth-child(7) {
-  animation-delay: 6s;
-}
-
-.wish-item:nth-child(8) {
-  animation-delay: 7s;
-}
-
-.wish-item:nth-child(9) {
-  animation-delay: 8s;
-}
-
-.wish-item:nth-child(10) {
-  animation-delay: 9s;
+  opacity: 1;
 }
 
 .wish-item .wish-sender {
@@ -1746,30 +1703,6 @@ body.invitation-opened .main-content {
   line-height: 1.4;
 }
 
-/* ✅ CHẠY TỪ DƯỚI LÊN */
-@keyframes scrollUp {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-50%);
-  }
-}
-/* ✅ HIỆU ỨNG: hiện đậm ở dưới → mờ dần khi đi lên trên */
-@keyframes fadeInFadeOut {
-  0% {
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  } /* hiện rõ khi vừa xuất hiện ở dưới */
-  80% {
-    opacity: 0.4;
-  } /* dần mờ khi đi lên */
-  100% {
-    opacity: 0;
-  } /* mờ hẳn khi ra trên cùng */
-}
 /* 📱 Responsive */
 @media (max-width: 420px) {
   .wish-section {
